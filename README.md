@@ -1,2 +1,3 @@
 # Simple-Levels
-The source code of the mod. Put a bit of effort into commenting it so others can work well with it.
+Mod releases are automatically sent here.
+Source code is added to the release at a latter point.
