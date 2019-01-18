@@ -27,7 +27,7 @@ Fixed the /simple command.
 Fixed Hp and Mana getting messed up again.
 
 1.0.5
-homepage fixed.
+Homepage fixed.
 
 1.0.4
 Code cleanup.
