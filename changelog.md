@@ -1,3 +1,8 @@
+1.1.1
+Fixed the massive level ups found by Elioplasma.
+Added the command: /simpleSetLevel newLevel to allow players to change their levels at will.
+XP needed to level up has been multiplied by 5, 200 million cap on level up requirement still in place.
+
 1.1.0
 Swapped the defense boost for a damage reduction.
 Swapped the mana increase for a mana cost reduction.
