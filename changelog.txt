@@ -1,3 +1,6 @@
+1.1.2
+Added a boost to movement speed, movement acceleration and wing time.
+
 1.1.1
 Fixed the massive level ups found by Elioplasma.
 Added the command: /simpleSetLevel newLevel to allow players to change their levels at will.
