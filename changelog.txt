@@ -1,3 +1,8 @@
+1.2.0
+Fixed the info shown on /simpleSetLevel.
+The health boost is now dependant on the health the player would have at level 0. Life hearts and fruits should be relevant again.
+Added some extra life regen, 0.5 life per second every 50 levels.
+
 1.1.2
 Added a boost to movement speed, movement acceleration and wing time.
 
