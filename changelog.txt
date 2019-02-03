@@ -1,3 +1,6 @@
+1.2.1
+Fixed the info shown for wing time boost.
+
 1.2.0
 Fixed the info shown on /simpleSetLevel.
 The health boost is now dependant on the health the player would have at level 0. Life hearts and fruits should be relevant again.
