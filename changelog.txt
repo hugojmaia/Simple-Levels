@@ -1,3 +1,6 @@
+1.4.0
+Keybind added. Now you can use it to get the same info as the /simple command.
+
 1.3.0
 Damage reduction now applies after defense.
 Damage reduction and mana cost reduction separated internally.
