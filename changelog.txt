@@ -1,3 +1,11 @@
+1.5.0
+New XP formula, getting past level 100 will take considerably longer now.
+Damage boost per level reduced to 2%.
+Capped wing time boost to level 100.
+Damage reduction capped at 75%. Happens at level 150.
+Mana cost reduction capped at 75%. Happens at level 150.
+Crawltipede no longer gives XP.
+
 1.4.0
 Keybind added. Now you can use it to get the same info as the /simple command.
 
