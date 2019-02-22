@@ -1,3 +1,7 @@
+1.6.0
+Player's respawn time now gets reduced by 0.75% per level, capped at level 100.
+Player's item use speed increased by 0.5% per level, capped at 100.
+
 1.5.0
 New XP formula, getting past level 100 will take considerably longer now.
 Damage boost per level reduced to 2%.
