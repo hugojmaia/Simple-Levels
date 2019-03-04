@@ -1,3 +1,8 @@
+1.6.1
+Fixed the info display with the commands and the keybind.
+Xp from killable projectiles removed.
+Code cleanup.
+
 1.6.0
 Player's respawn time now gets reduced by 0.75% per level, capped at level 100.
 Player's item use speed increased by 0.5% per level, capped at 100.
