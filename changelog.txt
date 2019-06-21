@@ -1,3 +1,11 @@
+1.6.4
+Fixed the hp boost not loading correctly when the player enters the world.
+Mod no longer uses a global item.
+
+1.6.3
+Code cleanup, reduced the amount of things that this mod does every frame.
+The way that wing time and speed are increased has now been made equal to the other buffs.
+
 1.6.2
 Removed item use speed increase from items that are close to the fastest vanilla speed possible.
 
