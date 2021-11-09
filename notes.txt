@@ -1,0 +1,20 @@
+Function NPCLoot is what runs when an NPC is killed.
+
+Wondering if I can equip/give something to the player that stores everything from the mod in an unrechable spot.
+
+Got the xp formula working with a cheesy display over enemy heads when they are killed.
+Need to apply the logic to the function that checks when an NPC is hit by something.
+
+The atribute system is going to be an absolute nightmare to implement, so I'll do levels only.
+
+I think I got the damage boost working out with the levels, gonna test later.
+
+Everything's working when it comes to damage going up with the level, found the PostUpdate() function and that is going to be just the thing that I needed to boost the player's hp, mana and defense with the level.
+
+Hp and mana boosted correctly, defense buffing is iffy if a debuff happens to be present. Now I need to add the xp and level to somewhere on the inventory screen and the mod is ready to be shipped.
+
+Need to do some hard work on cleaning up the code, "XPToNextLevel" -> "GetLevelupXP" plus uppercase everything. Change doubles to float and hopefully don't break everything.
+jorfaiden's better code for level up https://hastebin.com/ikamewotat.cs also "return TryLevelUp();"
+I'm going to change it so the level can be calculated directly instead of by iterations.
+
+My game has been struggling hard while flushing large amounts of fluid when building hellevators, assumed it was my mod's fault and went about doing what I believe will improve performance.

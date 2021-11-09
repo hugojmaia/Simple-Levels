@@ -1,0 +1,15 @@
+﻿using Terraria;
+using Terraria.ModLoader;
+
+namespace SimpleLevels
+{
+	public class SimpleGlobalItem : GlobalItem
+	{
+		public override float UseTimeMultiplier (Item item, Player player)
+        {
+            if (item.useTime < 3)
+                return 1.0f;
+            return (float)player.GetModPlayer<SimplePlayer>().itemUseTimeSpeedup;
+        }
+	}
+}
