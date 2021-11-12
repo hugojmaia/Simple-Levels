@@ -1,6 +1,7 @@
-Simple Levels aims to add the levelling system from Castlevania Order of Ecclesia into Terraria with zero care as to how that messes with the vanilla balance.
+Simple Levels aims to add a levelling system to the game with the sole intent of making the game easier and not interfering with any other mod.
+
 Commands:
-"/simple" to view your current level and some extra info.
-"/simpleSetlevel newLevel" to set your level at any time.
+"/simpleSetMultiplierDamageHP multDamage multHP": Sets the multiplier for the damage and hp buffs, 0.1% steps, caps at 1000.
+
 Keybinds:
-Show Level info: displays the same info as the "/simple" command.
+Show Level info: displays level, xp and buffs in chat.
