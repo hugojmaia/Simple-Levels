@@ -18,3 +18,8 @@ jorfaiden's better code for level up https://hastebin.com/ikamewotat.cs also "re
 I'm going to change it so the level can be calculated directly instead of by iterations.
 
 My game has been struggling hard while flushing large amounts of fluid when building hellevators, assumed it was my mod's fault and went about doing what I believe will improve performance.
+
+Time to rethink the buffs on this thing and add some configuration.
+Scrapped most buffs, felt things were a nightmare to keep track of, plus some redundant stuff like damage reduction being effectively the same as more hp.
+Idk why it got in me to add checks to make sure stuff stays within the caps, but that is there now.
+It's working and idk if I'm updating this again.
