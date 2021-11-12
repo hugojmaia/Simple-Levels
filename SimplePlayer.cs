@@ -30,8 +30,8 @@ namespace SimpleLevels
         public double LevelUpXPCap = 500000000.0;
         public double DamageStep = 0.001;
         public double HPStep = 0.001;
-        public double DamageMultiplierCap = 1000.0;
-        public double HPMultiplierCap = 1000.0;
+        public int DamageMultiplierCap = 1000;
+        public int HPMultiplierCap = 1000;
 
         /*
          * Making sure everything saves and loads correctly.
@@ -57,9 +57,8 @@ namespace SimpleLevels
                 damageMultiplier = tag.GetInt("damage");
                 hpMultiplier = tag.GetInt("hp");
             }
-            catch (SystemException e)
+            catch
             {
-                ErrorLogger.Log("Error loading save :: " + e.ToString());
             }
         }
         
@@ -114,7 +113,7 @@ namespace SimpleLevels
         public void ShowLevelInfo()
         {
             Main.NewText("Level: " + level, 63, 255, 63);
-            Main.NewText((int)(GetNextLevelXP(level) - currentXP) + "/" + (int)GetNextLevelXP(level) + " xp", 63, 255, 63);
+            Main.NewText((int)currentXP + "/" + (int)GetNextLevelXP(level) + " xp", 63, 255, 63);
             Main.NewText("Damage: +" + (damageBuff * 100) + "%", 63, 255, 63);
             Main.NewText("HP: +" + (hpBuff * 100) + "%", 63, 255, 63);
         }
@@ -198,7 +197,6 @@ namespace SimpleLevels
         
         /*
          * Applying the hp buff.
-         * PreUpdateBuffs was being used before for hp, it'll need testing.
          */
         
         public override void PostUpdateEquips()
