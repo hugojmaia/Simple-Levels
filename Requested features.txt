@@ -1,7 +1,0 @@
-By INTJ: Level goes back to zero after each boss is defeated for the first time.
-Off by default.
-
-Make bosses more rewarding. Probably gonna need to re-grab the vanilla monster table.
-
-Cap the currently uncapped values
-Cap level at 10k
