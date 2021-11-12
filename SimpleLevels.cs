@@ -12,8 +12,8 @@ using System.Collections.Generic;
 
 namespace SimpleLevels
 {
-	class SimpleLevels : Mod
-	{
+    class SimpleLevels : Mod
+    {
         public static ModHotKey ShowLevelInfoKey;
         public enum Message : byte {AddXP};
         public static Dictionary<Message, List<DataTag>> dataTags = new Dictionary<Message, List<DataTag>>()
@@ -24,12 +24,12 @@ namespace SimpleLevels
         public SimpleLevels()
         {
         }
-		
+
         public override void Load()
         {
             ShowLevelInfoKey = RegisterHotKey("Show level info", "C");
         }
-        
+
         public override void Unload()
         {
             ShowLevelInfoKey = null;
