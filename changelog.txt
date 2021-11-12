@@ -1,3 +1,18 @@
+2.0.0
+Icon has a slight border now.
+Mod description changed.
+The cap for xp required to level up has been increased to 500 million, it'll cap around level 120 now.
+Level now capped at 1000.
+Internal handling of the damage and hp buffs changed. They now have a 0.1% step and a multiplier that can be set by the player with the new command.
+
+Added the /simpleSetMultiplierDamageHP command. This allows the player to set on the fly how discrete or how strong the buffs are. Default values are 20 and 10, which result in +2% damage and +1% hp per level.
+Yes this command is gigantic and used to set both at the same time, each one caps at 1000, setting a value bigger than that will leave it unchanged.
+Setting any to 0 turns off the respective buff.
+
+Removed most buffs, only hp and damage remain.
+Removed the /simple command.
+Removed the /simpleSetLevel command.
+
 1.6.4
 Fixed the hp boost not loading correctly when the player enters the world.
 Mod no longer uses a global item.
