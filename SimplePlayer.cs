@@ -1,10 +1,10 @@
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.GameInput;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
 
 /*
  * This is the bulk of the mod.
@@ -21,8 +21,8 @@ namespace SimpleLevels
         public int damageMultiplier = 20;
         public int hpMultiplier = 10;
         
-        public double damageBuff = 0.0;
-        public double hpBuff = 0.0;
+        public float damageBuff = 0.0f;
+        public float hpBuff = 0.0f;
         
         public double Level0XP = 500.0;
         public int LevelCap = 1000;
@@ -37,18 +37,15 @@ namespace SimpleLevels
          * Making sure everything saves and loads correctly.
          */
         
-        public override TagCompound Save()
+        public override void SaveData(TagCompound tag)
         {
-            return new TagCompound
-            {
-                {"level", level},
-                {"xp", currentXP},
-                {"damage", damageMultiplier},
-                {"hp", hpMultiplier}
-            };
+            tag.Add("level", level);
+            tag.Add("xp", currentXP);
+            tag.Add("damage", damageMultiplier);
+            tag.Add("hp", hpMultiplier);
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadData(TagCompound tag)
         {
             try
             {
@@ -62,7 +59,7 @@ namespace SimpleLevels
             }
         }
         
-        public override void OnEnterWorld (Player player)
+        public override void OnEnterWorld ()
         {
             CalculateBuffs();
         }
@@ -157,42 +154,31 @@ namespace SimpleLevels
                 damageMultiplier = DamageMultiplierCap;
             if (damageMultiplier < 0)
                 damageMultiplier = 0;
-            damageBuff = damageMultiplier * DamageStep * level;
+            damageBuff = (float)(damageMultiplier * DamageStep * level);
             if (hpMultiplier > HPMultiplierCap)
                 hpMultiplier = HPMultiplierCap;
             if (hpMultiplier < 0)
                 hpMultiplier = 0;
-            hpBuff = hpMultiplier * HPStep * level;
+            hpBuff = (float)(hpMultiplier * HPStep * level);
         }
         
         /*
          * Applying damage boost
          */
         
-        public void BoostIt(ref int damage)
+        public void BoostIt(ref NPC.HitModifiers modifiers)
         {
-            damage += (int)(damage * damageBuff);
-        }
-
-        
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
-        {
-            BoostIt(ref damage);
-        }
-
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            BoostIt(ref damage);
+            modifiers.FinalDamage += damageBuff;
         }
         
-        public override void ModifyHitPvp(Item item, Player target, ref int damage, ref bool crit)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            BoostIt(ref damage);
+            BoostIt(ref modifiers);
         }
 
-        public override void ModifyHitPvpWithProj(Projectile proj, Player target, ref int damage, ref bool crit)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            BoostIt(ref damage);
+            BoostIt(ref modifiers);
         }
         
         /*
