@@ -1,5 +1,5 @@
 author = hugojmaia
-version = 2.0.0
+version = 2.1.0
 displayName = Simple Levels
 homepage = https://forums.terraria.org/index.php?threads/simple-levels.75029/
 hideCode = false
