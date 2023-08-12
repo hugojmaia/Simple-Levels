@@ -18,20 +18,9 @@ namespace SimpleLevels
     {
         public int level = 0;
         public double currentXP = 0.0;
-        public int damageMultiplier = 20;
-        public int hpMultiplier = 10;
-        
-        public float damageBuff = 0.0f;
-        public float hpBuff = 0.0f;
-        
-        public double Level0XP = 500.0;
-        public int LevelCap = 1000;
-        public double XPGrowth = 1.1;
-        public double LevelUpXPCap = 500000000.0;
-        public double DamageStep = 0.001;
-        public double HPStep = 0.001;
-        public int DamageMultiplierCap = 1000;
-        public int HPMultiplierCap = 1000;
+
+        public float damageBuff;
+        public float hpBuff;
 
         /*
          * Making sure everything saves and loads correctly.
@@ -41,8 +30,6 @@ namespace SimpleLevels
         {
             tag.Add("level", level);
             tag.Add("xp", currentXP);
-            tag.Add("damage", damageMultiplier);
-            tag.Add("hp", hpMultiplier);
         }
 
         public override void LoadData(TagCompound tag)
@@ -51,8 +38,6 @@ namespace SimpleLevels
             {
                 level = tag.GetInt("level");
                 currentXP = tag.GetDouble("xp");
-                damageMultiplier = tag.GetInt("damage");
-                hpMultiplier = tag.GetInt("hp");
             }
             catch
             {
@@ -66,18 +51,19 @@ namespace SimpleLevels
 
         /*
          * Level up and level info
-         * Added precautions in case the level ends up above the cap.
+         * Enforces the level cap.
          */
         
         public double GetNextLevelXP(int CurrentLevel)
         {
-            if (level == LevelCap)
+            if (level == ModContent.GetInstance<SimpleConfig>().LevelCap)
                 return 0;
-            return Math.Min(Level0XP * Math.Pow(XPGrowth, (double)CurrentLevel), LevelUpXPCap);
+            return Math.Min(ModContent.GetInstance<SimpleConfig>().Level0XP * Math.Pow((1.0 + (double)ModContent.GetInstance<SimpleConfig>().XPGrowth) / 100.0, (double)CurrentLevel), (double)ModContent.GetInstance<SimpleConfig>().LevelUpXPCap);
         }
 
         public int GetCurrentLevel()
         {
+            int LevelCap = ModContent.GetInstance<SimpleConfig>().LevelCap;
             int i = level;
             while (currentXP > GetNextLevelXP(i))
             {
@@ -91,6 +77,7 @@ namespace SimpleLevels
 
         public void AddXP(double XP)
         {
+            int LevelCap = ModContent.GetInstance<SimpleConfig>().LevelCap;
             currentXP += XP;
             if (level > LevelCap)
             {
@@ -128,38 +115,14 @@ namespace SimpleLevels
         }
         
         /*
-         * Change the multiplier for hp and damage
-         */
-        
-        public void SetMultiplierDamageHP(int damage, int hp)
-        {
-            if (damage >= 0 && damage <= DamageMultiplierCap)
-                damageMultiplier = damage;
-            Main.NewText("Damage Multiplier set to " + damageMultiplier, 63, 255, 63);
-            if (hp >= 0 && hp <= HPMultiplierCap)
-                hpMultiplier = hp;
-            Main.NewText("HP Multiplier set to " + hpMultiplier, 63, 255, 63);
-            CalculateBuffs();
-        }
-
-        /*
          * Stuff that doesn't change often is calculated here.
          * This is supposed to run when the player loads in and when the player levels up.
-         * Added a sanity check in case the multipliers end up outside of the cap.
          */
         
         public void CalculateBuffs()
         {
-            if (damageMultiplier > DamageMultiplierCap)
-                damageMultiplier = DamageMultiplierCap;
-            if (damageMultiplier < 0)
-                damageMultiplier = 0;
-            damageBuff = (float)(damageMultiplier * DamageStep * level);
-            if (hpMultiplier > HPMultiplierCap)
-                hpMultiplier = HPMultiplierCap;
-            if (hpMultiplier < 0)
-                hpMultiplier = 0;
-            hpBuff = (float)(hpMultiplier * HPStep * level);
+            damageBuff = (ModContent.GetInstance<SimpleConfig>().DamageMultiplier * level / 100f);
+            hpBuff = (ModContent.GetInstance<SimpleConfig>().HPMultiplier * level / 100f);
         }
         
         /*
@@ -170,6 +133,7 @@ namespace SimpleLevels
         {
             modifiers.FinalDamage += damageBuff;
         }
+
         
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
