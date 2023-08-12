@@ -1,3 +1,7 @@
+2.1.0
+Added a config option to the mod.
+Removed the command.
+
 2.0.1
 Same as before but updated to work with 1.4.4
 
