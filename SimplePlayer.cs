@@ -58,7 +58,7 @@ namespace SimpleLevels
         {
             if (level == ModContent.GetInstance<SimpleConfig>().LevelCap)
                 return 0;
-            return Math.Min(ModContent.GetInstance<SimpleConfig>().Level0XP * Math.Pow((1.0 + (double)ModContent.GetInstance<SimpleConfig>().XPGrowth) / 100.0, (double)CurrentLevel), (double)ModContent.GetInstance<SimpleConfig>().LevelUpXPCap);
+            return Math.Min((double)ModContent.GetInstance<SimpleConfig>().Level0XP * Math.Pow((1.0 + (double)ModContent.GetInstance<SimpleConfig>().XPGrowth / 100.0), (double)CurrentLevel), (double)ModContent.GetInstance<SimpleConfig>().LevelUpXPCap);
         }
 
         public int GetCurrentLevel()
