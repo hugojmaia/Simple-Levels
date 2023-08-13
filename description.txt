@@ -1,7 +1,4 @@
 Simple Levels aims to add a levelling system to the game with the sole intent of making the game easier and not interfering with any other mod.
 
-Commands:
-"/simpleSetMultiplierDamageHP multDamage multHP": Sets the multiplier for the damage and hp buffs, 0.1% steps, caps at 1000.
-
 Keybinds:
 Show Level info: displays level, xp and buffs in chat.
