@@ -1,3 +1,6 @@
+2.1.1
+Fixed a bug where the xp required to level up was being 0 and caused the game to freeze whenever the level got recalculated.
+
 2.1.0
 Added a config option to the mod.
 Removed the command.
