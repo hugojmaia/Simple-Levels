@@ -69,10 +69,10 @@ namespace SimpleLevels
             {
                 currentXP -= GetNextLevelXP(i);
                 i++;
+                if (i > LevelCap)
+                    return LevelCap;
             }
-            if (i < LevelCap)
-                return i;
-            return LevelCap;
+            return i;
         }
 
         public void AddXP(double XP)
@@ -98,8 +98,8 @@ namespace SimpleLevels
         {
             Main.NewText("Level: " + level, 63, 255, 63);
             Main.NewText((int)currentXP + "/" + (int)GetNextLevelXP(level) + " xp", 63, 255, 63);
-            Main.NewText("Damage: +" + (damageBuff * 100) + "%", 63, 255, 63);
-            Main.NewText("HP: +" + (hpBuff * 100) + "%", 63, 255, 63);
+            Main.NewText("Damage: +" + (int)(damageBuff * 100) + "%", 63, 255, 63);
+            Main.NewText("HP: +" + (int)(hpBuff * 100) + "%", 63, 255, 63);
         }
         
         /*
