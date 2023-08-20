@@ -1,7 +1,10 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 /*
  * Calculating and awarding xp each time something dies.
@@ -25,12 +28,12 @@ namespace SimpleLevels
         {
             double XP;
 
-            XP = Math.Pow(npc.lifeMax * npc.damage * Math.Max((double)npc.defense, 1.0), (double)ModContent.GetInstance<SimpleConfig>().MobXPExponent);
-            
-            if (npc.lifeMax == 1)
+            if (npc.lifeMax == 1 || npc.damage == 0 || (!npc.boss && ModContent.GetInstance<SimpleConfig>().OnlyBossXP))
                 XP = 0.0;
+            else
+                XP = Math.Pow(npc.lifeMax * npc.damage * Math.Max((double)npc.defense, 1.0), (double)ModContent.GetInstance<SimpleConfig>().MobXPExponent);
 
-            if (npc.lastInteraction != 255 && !npc.dontTakeDamage)
+            if (npc.lastInteraction != 255 && !npc.dontTakeDamage && XP > 0.0)
             {
                 //Main.LocalPlayer.GetModPlayer<SimplePlayer>().AddXP(XP);
                 if (Main.netMode == 2)
