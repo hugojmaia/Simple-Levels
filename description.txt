@@ -1,6 +1,14 @@
-1.4 alpha version of this.
+1.4.4 version of this.
 
 Simple Levels aims to add a levelling system to the game with the sole intent of making the game easier and not interfering with any other mod.
 
 Keybinds:
 Show Level info: displays level, xp and buffs in chat.
+
+Configs allow you to control nearly every aspect of the mod. Be wary very large numbers can result in negative damage or health. You can readjust that in the main menu anytime if something does go wrong.
+
+The rules on how you earn XP:
+    At least one player has landed a hit on the enemy.
+    The enemy's attack is higher than 0 (critters).
+    The enemy's health is higher than 1 (projectiles you can break).
+    The enemy doesn't have invulnerable parts (Crawltipede, only viable workaround for an enemy that would otherwise give out bonkers amount of xp for how easy it is to kill).
