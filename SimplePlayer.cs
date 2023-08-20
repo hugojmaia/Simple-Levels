@@ -22,6 +22,15 @@ namespace SimpleLevels
         public float damageBuff;
         public float hpBuff;
 
+        public double DamageMultiplier;
+        public double DamageDivider;
+        public double HPMultiplier;
+        public double HPDivider;
+        public int LevelCap;
+        public double Level0XP;
+        public double XPGrowth;
+        public double LevelUpXPCap;
+
         /*
          * Making sure everything saves and loads correctly.
          */
@@ -46,6 +55,7 @@ namespace SimpleLevels
         
         public override void OnEnterWorld ()
         {
+            LoadConfigs();
             CalculateBuffs();
         }
 
@@ -56,48 +66,50 @@ namespace SimpleLevels
         
         public double GetNextLevelXP(int CurrentLevel)
         {
-            if (level == ModContent.GetInstance<SimpleConfig>().LevelCap)
+            if (level == LevelCap)
                 return 0;
-            return Math.Min((double)ModContent.GetInstance<SimpleConfig>().Level0XP * Math.Pow((1.0 + (double)ModContent.GetInstance<SimpleConfig>().XPGrowth / 100.0), (double)CurrentLevel), (double)ModContent.GetInstance<SimpleConfig>().LevelUpXPCap);
+            if (LevelUpXPCap > 0.0)
+                return Math.Min(Level0XP * Math.Pow((1.0 + (XPGrowth / 100.0)), (double)CurrentLevel), LevelUpXPCap);
+            else
+                return (Level0XP * Math.Pow((1.0 + (XPGrowth / 100.0)), (double)CurrentLevel));
         }
 
         public int GetCurrentLevel()
         {
-            int LevelCap = ModContent.GetInstance<SimpleConfig>().LevelCap;
             int i = level;
             while (currentXP > GetNextLevelXP(i))
             {
                 currentXP -= GetNextLevelXP(i);
                 i++;
-                if (i > LevelCap)
+                if (i == LevelCap)
+                {
+                    currentXP = 0.0;
                     return LevelCap;
+                }
             }
             return i;
         }
 
         public void AddXP(double XP)
         {
-            int LevelCap = ModContent.GetInstance<SimpleConfig>().LevelCap;
-            currentXP += XP;
-            if (level > LevelCap)
-            {
-                level = LevelCap;
-                CalculateBuffs();
-            }
-            if (level == LevelCap)
-                currentXP = 0;
+            if (level != LevelCap)
+                currentXP += XP;
             if (currentXP > GetNextLevelXP(level))
             {
                 level = GetCurrentLevel();
                 CalculateBuffs();
-                Main.NewText("Level up! " + level, 63, 255, 63);
+                if (!ModContent.GetInstance<SimpleConfig>().NoLevelUpNotif)
+                    Main.NewText("Level up! " + level, 63, 255, 63);
             }
         }
         
         public void ShowLevelInfo()
         {
             Main.NewText("Level: " + level, 63, 255, 63);
-            Main.NewText((int)currentXP + "/" + (int)GetNextLevelXP(level) + " xp", 63, 255, 63);
+            if (level != LevelCap)
+                Main.NewText((int)currentXP + "/" + (int)GetNextLevelXP(level) + " xp", 63, 255, 63);
+            else
+                Main.NewText("Max level reached.", 63, 255, 63);
             Main.NewText("Damage: +" + (int)(damageBuff * 100) + "%", 63, 255, 63);
             Main.NewText("HP: +" + (int)(hpBuff * 100) + "%", 63, 255, 63);
         }
@@ -113,7 +125,23 @@ namespace SimpleLevels
                 ShowLevelInfo();
             }
         }
+
+        /*
+         * Loading configs
+         */
         
+        public void LoadConfigs()
+        {
+            DamageMultiplier = ModContent.GetInstance<SimpleConfig>().DamageMultiplier;
+            DamageDivider = ModContent.GetInstance<SimpleConfig>().DamageDivider;
+            HPMultiplier = ModContent.GetInstance<SimpleConfig>().HPMultiplier;
+            HPDivider = ModContent.GetInstance<SimpleConfig>().HPDivider;
+            LevelCap = ModContent.GetInstance<SimpleConfig>().LevelCap;
+            Level0XP = ModContent.GetInstance<SimpleConfig>().Level0XP;
+            XPGrowth = ModContent.GetInstance<SimpleConfig>().XPGrowth;
+            LevelUpXPCap = ModContent.GetInstance<SimpleConfig>().LevelUpXPCap;
+        }
+
         /*
          * Stuff that doesn't change often is calculated here.
          * This is supposed to run when the player loads in and when the player levels up.
@@ -121,8 +149,10 @@ namespace SimpleLevels
         
         public void CalculateBuffs()
         {
-            damageBuff = (ModContent.GetInstance<SimpleConfig>().DamageMultiplier * level / 100f);
-            hpBuff = (ModContent.GetInstance<SimpleConfig>().HPMultiplier * level / 100f);
+            if (level > LevelCap)
+                level = LevelCap;
+            damageBuff = (float)(DamageMultiplier * level / 100.0 / DamageDivider);
+            hpBuff = (float)(HPMultiplier * level / 100.0 / HPDivider);
         }
         
         /*
@@ -152,6 +182,26 @@ namespace SimpleLevels
         public override void PostUpdateEquips()
         {
             Main.LocalPlayer.statLifeMax2 += (int)(Main.LocalPlayer.statLifeMax2 * hpBuff);
+        }
+
+        /*
+         * Checking if configs have changed.
+         */
+
+        public override void PreUpdate ()
+        {
+            if (DamageMultiplier != (Double)ModContent.GetInstance<SimpleConfig>().DamageMultiplier ||
+            DamageDivider != (Double)ModContent.GetInstance<SimpleConfig>().DamageDivider ||
+            HPMultiplier != (Double)ModContent.GetInstance<SimpleConfig>().HPMultiplier ||
+            HPDivider != (Double)ModContent.GetInstance<SimpleConfig>().HPDivider ||
+            LevelCap != ModContent.GetInstance<SimpleConfig>().LevelCap ||
+            Level0XP != (Double)ModContent.GetInstance<SimpleConfig>().Level0XP ||
+            XPGrowth != (Double)ModContent.GetInstance<SimpleConfig>().XPGrowth ||
+            LevelUpXPCap != (Double)ModContent.GetInstance<SimpleConfig>().LevelUpXPCap)
+            {
+                LoadConfigs();
+                CalculateBuffs();
+            }
         }
     }
 }
