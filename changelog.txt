@@ -1,3 +1,8 @@
+2.2.0
+Expanded the configs. Set very large numbers at your own risk.
+Changed configs to be server side.
+Expanded the description.
+
 2.1.2
 Updated the mod's description.
 No more funky decimals on the stats display.
