@@ -24,73 +24,86 @@ namespace SimpleLevels
 {
     public class SimpleConfig : ModConfig
     {
-        public override ConfigScope Mode => ConfigScope.ClientSide;
+        public override ConfigScope Mode => ConfigScope.ServerSide;
 
         [Label("Damage")]
-        [Tooltip("How much damage increases per level in %")]
-        [Range(0f, 100f)]
-        [Increment(1f)]
+        [Tooltip("How much damage increases per level in %\n[0 to 1 billion]")]
+        [Range(0, 1000000000)]
+        [Increment(1)]
         [DrawTicks]
-        [DefaultValue(2f)]
-        public float DamageMultiplier;
+        [DefaultValue(2)]
+        public int DamageMultiplier;
+
+        [Label("Damage Divider")]
+        [Tooltip("Divides the damage bonus by this amount, provides finer control over the bonus\n[1 to 1 billion]")]
+        [Range(1, 1000000000)]
+        [Increment(1)]
+        [DrawTicks]
+        [DefaultValue(1)]
+        public int DamageDivider;
 
         [Label("Health")]
-        [Tooltip("How much HP increases per level in %")]
-        [Range(0f, 100f)]
-        [Increment(1f)]
+        [Tooltip("How much HP increases per level in %\n[0 to 1 billion]")]
+        [Range(0, 1000000000)]
+        [Increment(1)]
         [DrawTicks]
-        [DefaultValue(1f)]
-        public float HPMultiplier;
+        [DefaultValue(1)]
+        public int HPMultiplier;
+
+        [Label("Health Divider")]
+        [Tooltip("Divides the health bonus by this amount, provides finer control over the bonus\n[1 to 1 billion]")]
+        [Range(1, 1000000000)]
+        [Increment(1)]
+        [DrawTicks]
+        [DefaultValue(1)]
+        public int HPDivider;
 
         [Label("Max level")]
-        [Tooltip("The max level the player can reach")]
-        [Range(10, 10000)]
+        [Tooltip("The max level the player can reach\n[1 to 1 billion]")]
+        [Range(1, 1000000000)]
         [Increment(1)]
         [DrawTicks]
         [DefaultValue(1000)]
         public int LevelCap;
 
         [Label("Level 0 xp")]
-        [Tooltip("Xp required to go from level 0 to level 1. All other xp requirements are based on this")]
-        [Range(100f, 10000f)]
-        [Increment(100f)]
+        [Tooltip("Xp required to go from level 0 to level 1.\nAll other xp requirements are based on this.\n[1 to 1 billion]")]
+        [Range(1, 1000000000)]
+        [Increment(100)]
         [DrawTicks]
-        [DefaultValue(500f)]
-        public float Level0XP;
+        [DefaultValue(500)]
+        public int Level0XP;
 
         [Label("XP Growth")]
-        [Tooltip("How much more xp the next level will require in %")]
-        [Range(0f, 100f)]
-        [Increment(1f)]
+        [Tooltip("How much more xp the next level will require in %\n[0 to 1 billion]")]
+        [Range(0, 1000000000)]
+        [Increment(1)]
         [DrawTicks]
-        [DefaultValue(10f)]
-        public float XPGrowth;
+        [DefaultValue(10)]
+        public int XPGrowth;
 
         [Label("Level XP cap")]
-        [Tooltip("Level ups will never require more than this amount")]
-        [Range(10000000f, 1000000000f)]
-        [Increment(10000000f)]
+        [Tooltip("Level ups will never require more than this amount\nSetting it to 0 will remove the cap\n[0 to 1 billion]")]
+        [Range(0, 1000000000)]
+        [Increment(10000000)]
         [DrawTicks]
-        [DefaultValue(500000000f)]
-        public float LevelUpXPCap;
+        [DefaultValue(500000000)]
+        public int LevelUpXPCap;
 
         [Label("Mob XP Exponent")]
-        [Tooltip("Change how much xp is given on kill, 0 means xp will always be 1, larger values will increase xp gained, lategame enemies will give a lot more xp than early game ones")]
+        [Tooltip("Change how much xp is given on kill, 0 means xp will always be 1\nLarger values will increase xp gained\nLategame enemies will give a lot more xp than early game ones\n[0 to 2]")]
         [Range(0f, 2f)]
         [Increment(0.1f)]
         [DrawTicks]
         [DefaultValue(0.5f)]
         public float MobXPExponent;
 
-        public override void OnChanged()
-        {
-            try
-            {
-                Main.LocalPlayer.GetModPlayer<SimplePlayer>().CalculateBuffs();
-            }
-            catch
-            {
-            }
-        }
+        [Label("Only bosses give xp")]
+        [DefaultValue(false)]
+        public bool OnlyBossXP;
+
+        [Label("Disable level up notification")]
+        [DefaultValue(false)]
+        public bool NoLevelUpNotif;
     }
 }
