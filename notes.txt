@@ -23,3 +23,7 @@ Time to rethink the buffs on this thing and add some configuration.
 Scrapped most buffs, felt things were a nightmare to keep track of, plus some redundant stuff like damage reduction being effectively the same as more hp.
 Idk why it got in me to add checks to make sure stuff stays within the caps, but that is there now.
 It's working and idk if I'm updating this again.
+
+Updated to 1.4.4
+Configurations successfully added, some users complaining about things not working, haven't gotten any more info other than "it don't work under any settings".
+Need to recover the granularity of previous config and need to expand the current ranges, let people go crazy.
